@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Abstractions;
 using RpgApi.Models;
 using RpgApi.Models.Enuns;
 
@@ -101,5 +102,36 @@ namespace RpgApi.Controllers
             return Ok(listaFinal);
         }
 
+        [HttpPut]
+        public IActionResult UpdatePersonagem(Personagem p)
+        {
+            Personagem personagemAlterado = personagens.Find(pers => pers.Id == p.Id);
+            personagemAlterado.Nome = p.Nome;
+            personagemAlterado.PontosVida = p.PontosVida;
+            personagemAlterado.Forca = p.Forca;
+            personagemAlterado.Defesa = p.Defesa;
+            personagemAlterado.Inteligencia = p.Inteligencia;
+            personagemAlterado.Classe = p.Classe;
+
+            return Ok(personagens);
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            personagens.RemoveAll(pers => pers.Id == id);
+
+            return Ok(personagens);
+        }
+
+        [HttpGet("GetByEnum/{enumId}")]
+        public IActionResult GetByEnum(int enumId)
+        {
+            ClasseEnum enumDigitado = (ClasseEnum)enumId;
+
+            List<Personagem> listaBusca = personagens.FindAll(p => p.Classe == enumDigitado);
+
+            return Ok(listaBusca);
+        }
     }
 }
