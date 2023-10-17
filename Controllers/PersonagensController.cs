@@ -30,6 +30,7 @@ namespace RpgApi.Controllers
             {
                 Personagem p = await _context.TB_PERSONAGENS
                     .Include(ar => ar.Arma)
+                    .Include(pr => pr.Usuario)
                     .Include(ph => ph.PersonagemHabilidades)
                         .ThenInclude(h => h.Habilidade)
                     .FirstOrDefaultAsync(pBusca => pBusca.Id == id);
@@ -111,6 +112,8 @@ namespace RpgApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+
         
     }
 }

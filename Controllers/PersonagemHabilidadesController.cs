@@ -54,5 +54,66 @@ namespace RpgApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetSingle(int id)
+        {
+            try
+            {
+                List<PersonagemHabilidade> p = await _context.TB_PERSONAGENS_HABILIDADES
+                    .Where(pBusca => pBusca.PersonagemId == id)
+                    .ToListAsync();
+
+                return Ok(p);
+
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("GetHabilidades")]
+        public async Task<IActionResult> GetHabilidades()
+        {
+            try
+            {
+                List<Habilidade> lista = await _context.TB_PERSONAGENS_HABILIDADES
+                .Select(ph => ph.Habilidade)
+                .Distinct()
+                .ToListAsync();
+                return Ok(lista);
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("DeletePersonagemHabilidade")]
+        public async Task<IActionResult> DeletePersonagemHabilidade(PersonagemHabilidade ph)
+        {
+            try
+            {
+                PersonagemHabilidade p = await _context.TB_PERSONAGENS_HABILIDADES
+                    .FirstOrDefaultAsync(pBusca => pBusca.PersonagemId == ph.PersonagemId && pBusca.HabilidadeId == ph.HabilidadeId);
+
+                if (p == null)
+                {
+                    throw new System.Exception("Não existe uma relação entre o personagem e a habilidade informados");
+                }
+
+
+                _context.TB_PERSONAGENS_HABILIDADES.Remove(p);
+
+                await _context.SaveChangesAsync();
+                return Ok(p);
+
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

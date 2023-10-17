@@ -71,8 +71,54 @@ namespace RpgApi.Controllers
                 }
                 else
                 {
+                    usuario.DataAcesso = DateTime.Now;
+
+                    _context.Entry(usuario).State = EntityState.Modified;
+                    await _context.SaveChangesAsync();
                     return Ok(usuario);
                 }
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPut("AlterarSenha")]
+        public async Task<IActionResult> AlterarSenhaUsuario(Usuario credenciais)
+        {
+            try
+            {
+                Usuario? usuario = await _context.TB_USUARIOS
+                .FirstOrDefaultAsync(x => x.Username.ToLower().Equals(credenciais.Username.ToLower()));
+
+                if (usuario == null)
+                {
+                    throw new System.Exception("Usuário não encontrado");
+                }
+
+                Criptografia.CriarPasswordHash(credenciais.PasswordString, out byte[] hash, out byte[] salt);
+                usuario.PasswordString = string.Empty;
+                usuario.PasswordHash = hash;
+                usuario.PasswordSalt = salt;
+                await _context.SaveChangesAsync();
+
+                return Ok(usuario.Id);
+
+            }
+            catch (System.Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("GetAll")]
+        public async Task<IActionResult> ListarUsuarios()
+        {
+            try
+            {
+                List<Usuario> lista = await _context.TB_USUARIOS.ToListAsync();
+                return Ok(lista);
             }
             catch (System.Exception ex)
             {
