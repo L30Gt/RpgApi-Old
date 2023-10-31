@@ -59,10 +59,17 @@ namespace RpgApi.Controllers
                 if(novaArma.Dano == 0)
                     throw new Exception("O dano da arma não pode ser 0");
 
-                Personagem p = await _context.TB_PERSONAGENS.FirstOrDefaultAsync(p => p.Id == novaArma.PersonagemId);
+                Personagem personagem = await _context.TB_PERSONAGENS
+                    .FirstOrDefaultAsync(p => p.Id == novaArma.PersonagemId);
 
-                if(p == null)
-                    throw new Exception("Não existe personagme com o Id informado");
+                if(personagem == null)
+                    throw new Exception("Seu usuário não contém personagens com o Id do Personagem informado.");
+
+                Arma buscaArma = await _context.TB_ARMAS
+                    .FirstOrDefaultAsync(a => a.PersonagemId == novaArma.PersonagemId);
+
+                if (buscaArma != null)
+                    throw new Exception("O Personagem selecionado já contém uma arma atribuída a ele.");
 
                 await _context.TB_ARMAS.AddAsync(novaArma);
                 await _context.SaveChangesAsync();
