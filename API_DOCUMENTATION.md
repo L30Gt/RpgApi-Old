@@ -591,7 +591,7 @@ This is a RESTful API for an RPG (Role-Playing Game) management system. The API 
   "id": 1,
   "atacanteId": 1,
   "oponenteId": 2,
-  "narracao": " Atacante: Aragorn. Oponente: Legolas. Pontos de vida do atacante: 100. Pontos de vida do oponente: 75. Arma Utilizada: Anduril. Dano: 25.",
+  "narracao": "Atacante: Aragorn. Oponente: Legolas. Pontos de vida do atacante: 100. Pontos de vida do oponente: 75. Arma Utilizada: Anduril. Dano: 25.",
   "dataDisputa": "2023-10-15T10:30:00"
 }
 ```
@@ -619,7 +619,7 @@ This is a RESTful API for an RPG (Role-Playing Game) management system. The API 
   "atacanteId": 1,
   "oponenteId": 2,
   "habilidadeId": 3,
-  "narracao": " Atacante: Aragorn. Oponente: Legolas. Pontos de vida do atacante: 100. Pontos de vida do oponente: 60. Habilidade Utilizada: Golpe Poderoso. Dano: 15.",
+  "narracao": "Atacante: Aragorn. Oponente: Legolas. Pontos de vida do atacante: 100. Pontos de vida do oponente: 60. Habilidade Utilizada: Golpe Poderoso. Dano: 15.",
   "dataDisputa": "2023-10-15T10:30:00"
 }
 ```
@@ -689,7 +689,7 @@ This is a RESTful API for an RPG (Role-Playing Game) management system. The API 
     "id": 1,
     "atacanteId": 1,
     "oponenteId": 2,
-    "narracao": " Atacante: Aragorn. Oponente: Legolas...",
+    "narracao": "Atacante: Aragorn. Oponente: Legolas...",
     "dataDisputa": "2023-10-15T10:30:00"
   }
 ]
