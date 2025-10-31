@@ -780,6 +780,8 @@ This is a RESTful API for an RPG (Role-Playing Game) management system. The API 
 
 **Description**: Removes a skill from a character.
 
+**Note**: This endpoint uses POST method despite being a delete operation.
+
 **Request Body**:
 ```json
 {
@@ -901,6 +903,8 @@ This is a RESTful API for an RPG (Role-Playing Game) management system. The API 
 **Endpoint**: `GET /PersonagensExemplo/GetRemovendoMago`
 
 **Description**: Removes the first Mage character from the list.
+
+**Note**: This endpoint uses GET method despite modifying data. This is only acceptable because PersonagensExemplo uses in-memory data for demonstration purposes.
 
 **Response Example**:
 ```json
@@ -1029,6 +1033,8 @@ This is a RESTful API for an RPG (Role-Playing Game) management system. The API 
 **Endpoint**: `GET /PersonagensExercicio/GetClerigoMago`
 
 **Description**: Removes all Knights and returns remaining characters ordered by health points (descending).
+
+**Note**: This endpoint uses GET method despite modifying data. This is only acceptable because PersonagensExercicio uses in-memory data for practice exercises.
 
 ---
 
@@ -1243,4 +1249,4 @@ const characters = await response.json();
 
 For questions or issues, please contact the development team or create an issue in the project repository.
 
-**Last Updated**: 2023-10-15
+**Last Updated**: 2025-10-31
